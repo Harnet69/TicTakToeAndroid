@@ -7,12 +7,9 @@
     tools:context=".MainActivity">
 
     <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout"
         android:layout_width="409dp"
         android:layout_height="409dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/board"
         app:columnCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,17 +17,16 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rowCount="3"
-        android:id="@+id/gridLayout">
+        app:rowCount="3">
 
         <ImageView
             android:id="@+id/field1"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="15dp"
+            android:onClick="dropIn"
             app:layout_column="0"
             app:layout_row="0"
-            app:srcCompat="@drawable/red"
             tools:layout_conversion_absoluteHeight="100dp"
             tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
@@ -41,23 +37,24 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="15dp"
+            android:onClick="dropIn"
             android:layout_marginLeft="30dp"
             app:layout_column="1"
             app:layout_row="0"
-            app:srcCompat="@drawable/red"
             tools:layout_conversion_absoluteHeight="100dp"
             tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
-            tools:layout_editor_absoluteY="161dp" />
+            tools:layout_editor_absoluteY="161dp"
+            android:layout_marginStart="30dp" />
 
         <ImageView
             android:id="@+id/field3"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="15dp"
+            android:onClick="dropIn"
             app:layout_column="2"
             app:layout_row="0"
-            app:srcCompat="@drawable/red"
             tools:layout_conversion_absoluteHeight="100dp"
             tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
@@ -69,9 +66,9 @@
             android:layout_height="100dp"
             android:layout_margin="15dp"
             android:layout_marginTop="20dp"
+            android:onClick="dropIn"
             app:layout_column="0"
             app:layout_row="1"
-            app:srcCompat="@drawable/red"
             tools:layout_conversion_absoluteHeight="100dp"
             tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
@@ -84,13 +81,14 @@
             android:layout_margin="15dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
+            android:onClick="dropIn"
             app:layout_column="1"
             app:layout_row="1"
-            app:srcCompat="@drawable/red"
             tools:layout_conversion_absoluteHeight="100dp"
             tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
-            tools:layout_editor_absoluteY="161dp" />
+            tools:layout_editor_absoluteY="161dp"
+            android:layout_marginStart="30dp" />
 
         <ImageView
             android:id="@+id/field6"
@@ -98,9 +96,9 @@
             android:layout_height="100dp"
             android:layout_margin="15dp"
             android:layout_marginTop="20dp"
+            android:onClick="dropIn"
             app:layout_column="2"
             app:layout_row="1"
-            app:srcCompat="@drawable/red"
             tools:layout_conversion_absoluteHeight="100dp"
             tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
@@ -112,9 +110,9 @@
             android:layout_height="100dp"
             android:layout_margin="15dp"
             android:layout_marginTop="30dp"
+            android:onClick="dropIn"
             app:layout_column="0"
             app:layout_row="2"
-            app:srcCompat="@drawable/red"
             tools:layout_conversion_absoluteHeight="100dp"
             tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
@@ -127,13 +125,14 @@
             android:layout_margin="15dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
+            android:onClick="dropIn"
             app:layout_column="1"
             app:layout_row="2"
-            app:srcCompat="@drawable/red"
             tools:layout_conversion_absoluteHeight="100dp"
             tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
-            tools:layout_editor_absoluteY="161dp" />
+            tools:layout_editor_absoluteY="161dp"
+            android:layout_marginStart="30dp" />
 
         <ImageView
             android:id="@+id/field9"
@@ -141,9 +140,9 @@
             android:layout_height="100dp"
             android:layout_margin="15dp"
             android:layout_marginTop="30dp"
+            android:onClick="dropIn"
             app:layout_column="2"
             app:layout_row="2"
-            app:srcCompat="@drawable/red"
             tools:layout_conversion_absoluteHeight="100dp"
             tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
