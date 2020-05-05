@@ -1,4 +1,4 @@
-package com.example.tictaktoe;
+package com.tictaktoe;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             gameStateDisplay.setText(savedInstanceState.getString("gameStateDisplay"));
             addImageToImageView();
             if(!gameStateDisplay.getText().equals("")){
-                restartBtn.setAlpha(1);
+                restartBtn.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -85,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
                     gameStateDisplay.setText("Red Player WON");
                 }
                 colorEmptyCells();
-                restartBtn.setAlpha(1);
+                restartBtn.setVisibility(View.VISIBLE);
 
             }
             else if (!isEmptyCellExist()) {
                 gameStateDisplay.setText("It's a DRAW!!!");
-                restartBtn.setAlpha(1);
+                restartBtn.setVisibility(View.VISIBLE);
             }
 
         } else {
@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
     // color empty cells
     private void colorEmptyCells() {
         ViewGroup yourLayout = (ViewGroup) findViewById(R.id.gridLayout);
-//        gameState = new int[yourLayout.getChildCount()];
         for (int i = 0; i < yourLayout.getChildCount(); i++) {
             View subView = yourLayout.getChildAt(i);
             if (subView instanceof ImageView) {
@@ -182,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             gameState[i] = 0;
         }
         clearCells(gameField);
-        restartBtn.setAlpha(0);
+        restartBtn.setVisibility(View.INVISIBLE);
         gameStateDisplay.setText("");
         restartSound.start();
     }
