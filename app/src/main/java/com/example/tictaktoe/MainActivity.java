@@ -15,15 +15,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Arrays;
-
 public class MainActivity extends AppCompatActivity {
     private int[] gameState;
     private TextView gameStateDisplay;
     private Button restartBtn;
     int[][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
     private int activePlayer = 1;
-    private MediaPlayer click;
+    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private MediaPlayer clickSound;
+    private MediaPlayer winSound;
+    private MediaPlayer restartSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
         gameStateDisplay = findViewById(R.id.gameStateDisplay);
         restartBtn = findViewById(R.id.restartBtn);
         addTagsToCells();
-        click = MediaPlayer.create(this, R.raw.click);
+        clickSound = MediaPlayer.create(this, R.raw.click);
+        winSound = MediaPlayer.create(this, R.raw.win);
+        restartSound = MediaPlayer.create(this, R.raw.restart);
 
         // get saved state
         if (savedInstanceState != null) {
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void dropIn(View view) {
         ImageView counter = (ImageView) view;
-        click.start();
+        clickSound.start();
         if (gameState[(int) counter.getTag()] == 0) {
             counter.setTranslationY(-1500);
             gameState[(int) counter.getTag()] = activePlayer;
@@ -115,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean isWinCombination() {
         for (int[] winningPosition : winningPositions) {
             if (gameState[winningPosition[0]] == gameState[winningPosition[1]] && gameState[winningPosition[1]] == gameState[winningPosition[2]] && gameState[winningPosition[0]] != 0) {
+                winSound.start();
                 return true;
             }
         }
@@ -180,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         clearCells(gameField);
         restartBtn.setAlpha(0);
         gameStateDisplay.setText("");
+        restartSound.start();
     }
 
 
