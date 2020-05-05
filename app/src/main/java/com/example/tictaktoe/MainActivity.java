@@ -36,7 +36,11 @@ public class MainActivity extends AppCompatActivity {
             gameState = savedInstanceState.getIntArray("gameState");
             gameStateDisplay.setText(savedInstanceState.getString("gameStateDisplay"));
             addImageToImageView();
+            if(!gameStateDisplay.getText().equals("")){
+                restartBtn.setAlpha(1);
+            }
         }
+
     }
 
     // initial adding a tag with cell number to ImageView
@@ -104,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     // win condition
     public boolean isWinCombination() {
         for (int[] winningPosition : winningPositions) {
@@ -133,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
             View subView = yourLayout.getChildAt(i);
             if (subView instanceof ImageView) {
                 ImageView imageView = (ImageView) subView;
-//                System.out.println(imageView.getTag());
                 for (int cell : gameState) {
                     if (cell == 0) {
                         if(activePlayer == 1){
@@ -171,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         }
         clearCells(gameField);
         restartBtn.setAlpha(0);
+        gameStateDisplay.setText("");
     }
 
 
