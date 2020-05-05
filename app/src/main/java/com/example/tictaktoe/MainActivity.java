@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Button restartBtn;
     int[][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
     private int activePlayer = 1;
+    private MediaPlayer click;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         gameStateDisplay = findViewById(R.id.gameStateDisplay);
         restartBtn = findViewById(R.id.restartBtn);
         addTagsToCells();
+        click = MediaPlayer.create(this, R.raw.click);
 
         // get saved state
         if (savedInstanceState != null) {
@@ -40,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
                 restartBtn.setAlpha(1);
             }
         }
-
     }
 
     // initial adding a tag with cell number to ImageView
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void dropIn(View view) {
         ImageView counter = (ImageView) view;
-
+        click.start();
         if (gameState[(int) counter.getTag()] == 0) {
             counter.setTranslationY(-1500);
             gameState[(int) counter.getTag()] = activePlayer;
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 colorEmptyCells();
                 restartBtn.setAlpha(1);
+
             }
             else if (!isEmptyCellExist()) {
                 gameStateDisplay.setText("It's a DRAW!!!");
@@ -131,11 +134,13 @@ public class MainActivity extends AppCompatActivity {
     // color empty cells
     private void colorEmptyCells() {
         ViewGroup yourLayout = (ViewGroup) findViewById(R.id.gridLayout);
-        gameState = new int[yourLayout.getChildCount()];
+//        gameState = new int[yourLayout.getChildCount()];
         for (int i = 0; i < yourLayout.getChildCount(); i++) {
             View subView = yourLayout.getChildAt(i);
             if (subView instanceof ImageView) {
                 ImageView imageView = (ImageView) subView;
+
+                // colors all cells to a winner's color
                 for (int cell : gameState) {
                     if (cell == 0) {
                         if(activePlayer == 1){
@@ -146,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
+
                 if (activePlayer == 1) {
                     imageView.setBackgroundColor(Color.parseColor("#ff0000"));
                 } else if (activePlayer == 2) {
