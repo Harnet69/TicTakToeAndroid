@@ -1,5 +1,6 @@
 package com.example.tictaktoe;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private int[] gameState;
@@ -33,19 +36,21 @@ public class MainActivity extends AppCompatActivity {
             }
             counter.animate().translationYBy(1500);
             if (isWinCombination()) {
-                if(activePlayer == 2){
+                if (activePlayer == 2) {
                     gameStateDisplay.setText("Yellow Player WON");
-                }else{
+                } else {
                     gameStateDisplay.setText("Red Player WON");
                 }
-                colorEmptyCells();
+//                colorEmptyCells();
             }
-            if(!isEmptyCellExist()){
+            if (!isEmptyCellExist()) {
                 gameStateDisplay.setText("It's a DRAW!!!");
             }
         } else {
+            counter.animate().rotationYBy(360).setDuration(1000);
             System.out.println("Cell is occupied");
         }
+        System.out.println(Arrays.toString(gameState));
     }
 
     @Override
@@ -55,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         addTagsToCells();
         gameStateDisplay = findViewById(R.id.gameStateDisplay);
 
+        if (savedInstanceState != null) {
+            gameState = savedInstanceState.getIntArray("gameState");
+            gameStateDisplay.setText(savedInstanceState.getString("gameStateDisplay"));
+            addImageToImageView();
+        }
     }
 
     // initial adding tag with cell number to ImageView
@@ -70,6 +80,23 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    // add images to ImageView after changing orientation
+    public void addImageToImageView() {
+        ViewGroup yourLayout = (ViewGroup) findViewById(R.id.gridLayout);
+        for (int i = 0; i < yourLayout.getChildCount(); i++) {
+            View subView = yourLayout.getChildAt(i);
+            if (subView instanceof ImageView) {
+                ImageView imageView = (ImageView) subView;
+                if (gameState[i] == 1) {
+                    imageView.setImageResource(R.drawable.yellow);
+                } else if(gameState[i] == 2) {
+                    imageView.setImageResource(R.drawable.red);
+                }
+            }
+        }
+    }
+
 
     // win condition
     public boolean isWinCombination() {
@@ -92,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // color empty cells
-    private void colorEmptyCells(){
+    private void colorEmptyCells() {
         ViewGroup yourLayout = (ViewGroup) findViewById(R.id.gridLayout);
         gameState = new int[yourLayout.getChildCount()];
         for (int i = 0; i < yourLayout.getChildCount(); i++) {
@@ -100,18 +127,33 @@ public class MainActivity extends AppCompatActivity {
             if (subView instanceof ImageView) {
                 ImageView imageView = (ImageView) subView;
 //                System.out.println(imageView.getTag());
-                for(int cell : gameState){
-                    if(cell == 0){
+                for (int cell : gameState) {
+                    if (cell == 0) {
                         gameState[(int) imageView.getTag()] = 404;
                     }
                 }
-                if(activePlayer == 1){
+                if (activePlayer == 1) {
                     imageView.setBackgroundColor(Color.parseColor("#ff0000"));
-                }else{
+                } else {
                     imageView.setBackgroundColor(Color.parseColor("#FFFF00"));
                 }
 
             }
         }
     }
+
+    // save game condition to prevent its reset when orientation change
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntArray("gameState", gameState);
+        outState.putString("gameStateDisplay", (String) gameStateDisplay.getText());
+    }
+
+//    @Override
+//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//
+//        savedInstanceState.getIntArray("gameState");
+//    }
 }
