@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
             gameState = savedInstanceState.getIntArray("gameState");
             gameStateDisplay.setText(savedInstanceState.getString("gameStateDisplay"));
             addImageToImageView();
-            System.out.println("Refresh!!");
         }
     }
 
@@ -77,9 +76,11 @@ public class MainActivity extends AppCompatActivity {
                     gameStateDisplay.setText("Red Player WON");
                 }
                 colorEmptyCells();
+                restartBtn.setAlpha(1);
             }
             else if (!isEmptyCellExist()) {
                 gameStateDisplay.setText("It's a DRAW!!!");
+                restartBtn.setAlpha(1);
             }
 
         } else {
@@ -169,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
             gameState[i] = 0;
         }
         clearCells(gameField);
+        restartBtn.setAlpha(0);
     }
 
 
