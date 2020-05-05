@@ -1,10 +1,12 @@
 package com.example.tictaktoe;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,29 +22,21 @@ public class MainActivity extends AppCompatActivity {
     private Button restartBtn;
     int[][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
     private int activePlayer = 1;
-    private boolean refresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(refresh){
-            super.onCreate(null);
-        }else{
-            super.onCreate(savedInstanceState);
-        }
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         gameStateDisplay = findViewById(R.id.gameStateDisplay);
         restartBtn = findViewById(R.id.restartBtn);
         addTagsToCells();
 
         // get saved state
-        if (savedInstanceState != null && !refresh) {
+        if (savedInstanceState != null) {
             gameState = savedInstanceState.getIntArray("gameState");
             gameStateDisplay.setText(savedInstanceState.getString("gameStateDisplay"));
             addImageToImageView();
             System.out.println("Refresh!!");
-        }else{
-//            super.onCreate(savedInstanceState);
-            refresh = false;
         }
     }
 
@@ -90,9 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             counter.animate().rotationYBy(360).setDuration(1000);
-            System.out.println("Cell is occupied");
         }
-//        System.out.println(Arrays.toString(gameState));
     }
 
     // add images to ImageView after changing orientation
@@ -169,28 +161,28 @@ public class MainActivity extends AppCompatActivity {
         outState.putString("gameStateDisplay", (String) gameStateDisplay.getText());
     }
 
-
-
+    // restart game
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void restart(View view){
-        System.out.println("Restart!");
+        ViewGroup gameField = (ViewGroup) findViewById(R.id.gridLayout);
         for(int i = 0; i < gameState.length; i++){
             gameState[i] = 0;
         }
-        ViewGroup yourLayout = (ViewGroup) findViewById(R.id.gridLayout);
+        clearCells(gameField);
+    }
+
+
+    // clear all cells fom images
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private void clearCells(ViewGroup yourLayout){
         for (int i = 0; i < yourLayout.getChildCount(); i++) {
             View subView = yourLayout.getChildAt(i);
             if (subView instanceof ImageView) {
                 ImageView imageView = (ImageView) subView;
                 imageView.setImageDrawable(null);
+                imageView.setBackground(null);
             }
         }
-        refresh = true;
-        System.out.println(Arrays.toString(gameState));
-//        ViewGroup vg = findViewById (R.id.allView);
-//        vg.invalidate();
-//        public void onCreate(Bundle savedInstanceState){
-//            super.onCreate(null);
-//        }
     }
 
 //    @Override
