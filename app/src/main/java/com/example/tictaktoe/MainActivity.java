@@ -176,6 +176,14 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < gameState.length; i++){
             gameState[i] = 0;
         }
+        ViewGroup yourLayout = (ViewGroup) findViewById(R.id.gridLayout);
+        for (int i = 0; i < yourLayout.getChildCount(); i++) {
+            View subView = yourLayout.getChildAt(i);
+            if (subView instanceof ImageView) {
+                ImageView imageView = (ImageView) subView;
+                imageView.setImageDrawable(null);
+            }
+        }
         refresh = true;
         System.out.println(Arrays.toString(gameState));
 //        ViewGroup vg = findViewById (R.id.allView);
