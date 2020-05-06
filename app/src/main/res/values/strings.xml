@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">TIcTakToe</string>
+    <string name="app_name">CodeCool TicTakToe</string>
+    <string name="restartBtn">Restart</string>
 </resources>

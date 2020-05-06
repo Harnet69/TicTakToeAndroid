@@ -23,6 +23,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/codecoolLogo"
+        android:layout_width="346dp"
+        android:layout_height="332dp"
+        android:alpha="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/codecool" />
+
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="365dp"
@@ -40,126 +52,106 @@
 
         <ImageView
             android:id="@+id/field1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/cell_width"
+            android:layout_height="@dimen/cell_height"
             android:layout_margin="10dp"
             android:onClick="dropIn"
             app:layout_row="0"
-            tools:layout_conversion_absoluteHeight="100dp"
-            tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="161dp" />
 
         <ImageView
             android:id="@+id/field2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/cell_width"
+            android:layout_height="@dimen/cell_height"
             android:layout_margin="10dp"
             android:layout_marginStart="30dp"
             android:layout_marginLeft="10dp"
             android:onClick="dropIn"
             app:layout_column="1"
             app:layout_row="0"
-            tools:layout_conversion_absoluteHeight="100dp"
-            tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="161dp" />
 
         <ImageView
             android:id="@+id/field3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/cell_width"
+            android:layout_height="@dimen/cell_height"
             android:layout_margin="10dp"
             android:onClick="dropIn"
             app:layout_column="2"
             app:layout_row="0"
-            tools:layout_conversion_absoluteHeight="100dp"
-            tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="161dp" />
 
         <ImageView
             android:id="@+id/field4"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/cell_width"
+            android:layout_height="@dimen/cell_width"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:onClick="dropIn"
             app:layout_column="0"
             app:layout_row="1"
-            tools:layout_conversion_absoluteHeight="100dp"
-            tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="161dp" />
 
         <ImageView
             android:id="@+id/field5"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/cell_width"
+            android:layout_height="@dimen/cell_height"
             android:layout_margin="10dp"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:onClick="dropIn"
             app:layout_column="1"
             app:layout_row="1"
-            tools:layout_conversion_absoluteHeight="100dp"
-            tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="161dp" />
 
         <ImageView
             android:id="@+id/field6"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/cell_width"
+            android:layout_height="@dimen/cell_height"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:onClick="dropIn"
             app:layout_column="2"
             app:layout_row="1"
-            tools:layout_conversion_absoluteHeight="100dp"
-            tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="161dp" />
 
         <ImageView
             android:id="@+id/field7"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/cell_width"
+            android:layout_height="@dimen/cell_height"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:onClick="dropIn"
             app:layout_column="0"
             app:layout_row="2"
-            tools:layout_conversion_absoluteHeight="100dp"
-            tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="161dp" />
 
         <ImageView
             android:id="@+id/field8"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/cell_width"
+            android:layout_height="@dimen/cell_height"
             android:layout_margin="15dp"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:onClick="dropIn"
             app:layout_column="1"
             app:layout_row="2"
-            tools:layout_conversion_absoluteHeight="100dp"
-            tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="161dp" />
 
         <ImageView
             android:id="@+id/field9"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/cell_width"
+            android:layout_height="@dimen/cell_height"
             android:layout_margin="10dp"
             android:onClick="dropIn"
             app:layout_column="2"
             app:layout_row="2"
-            tools:layout_conversion_absoluteHeight="100dp"
-            tools:layout_conversion_absoluteWidth="100dp"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="161dp" />
 
@@ -177,7 +169,7 @@
         android:layout_marginBottom="50dp"
         android:background="#67BF6A"
         android:onClick="restart"
-        android:text="Restart"
+        android:text="@string/restartBtn"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/gridLayout"

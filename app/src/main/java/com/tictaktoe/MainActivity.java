@@ -3,12 +3,14 @@ package com.tictaktoe;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.gridlayout.widget.GridLayout;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -50,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
     // initial adding a tag with cell number to ImageView
     public void addTagsToCells() {
-        ViewGroup yourLayout = (ViewGroup) findViewById(R.id.gridLayout);
+        GridLayout yourLayout = findViewById(R.id.gridLayout);
+        Log.i("Num col", String.valueOf(yourLayout.getColumnCount()));
         gameState = new int[yourLayout.getChildCount()];
         for (int i = 0; i < yourLayout.getChildCount(); i++) {
             View subView = yourLayout.getChildAt(i);
@@ -160,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (activePlayer == 2) {
                     imageView.setBackgroundColor(Color.parseColor("#FFFF00"));
                 }
-
             }
         }
     }
