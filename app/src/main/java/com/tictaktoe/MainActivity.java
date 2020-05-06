@@ -13,16 +13,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    private View allView;
     private int[] gameState;
     private TextView gameStateDisplay;
+    private ImageView codeCool;
     private Button restartBtn;
     int[][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
     private int activePlayer = 1;
+    private String colorOfWinner = "#A9E9F1";
+    private int degreesPerSecond = 45;
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private MediaPlayer clickSound;
     private MediaPlayer winSound;
@@ -32,21 +38,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        allView = findViewById(R.id.allView);
         gameStateDisplay = findViewById(R.id.gameStateDisplay);
         restartBtn = findViewById(R.id.restartBtn);
+        codeCool = findViewById(R.id.codecoolLogo);
         addTagsToCells();
         clickSound = MediaPlayer.create(this, R.raw.click);
         winSound = MediaPlayer.create(this, R.raw.win);
         restartSound = MediaPlayer.create(this, R.raw.restart);
+        rotate(codeCool, degreesPerSecond);
 
         // get saved state
         if (savedInstanceState != null) {
             gameState = savedInstanceState.getIntArray("gameState");
             gameStateDisplay.setText(savedInstanceState.getString("gameStateDisplay"));
+            colorOfWinner = savedInstanceState.getString("colorWinner");
+            degreesPerSecond = savedInstanceState.getInt("degreesPerSecond");
+            allView.setBackgroundColor(Color.parseColor(colorOfWinner));
+            rotate(codeCool, degreesPerSecond);
             addImageToImageView();
             if(!gameStateDisplay.getText().equals("")){
                 restartBtn.setVisibility(View.VISIBLE);
             }
+
         }
     }
 
@@ -68,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void dropIn(View view) {
         ImageView counter = (ImageView) view;
-        clickSound.start();
         if (gameState[(int) counter.getTag()] == 0) {
+            clickSound.start();
             counter.setTranslationY(-1500);
             gameState[(int) counter.getTag()] = activePlayer;
             if (activePlayer == 1) {
@@ -87,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     gameStateDisplay.setText("Red Player WON");
                 }
+//                spinChips(); // TODO now, it works only once
+                degreesPerSecond = 360;
+                rotate(codeCool, degreesPerSecond);
                 colorEmptyCells();
                 restartBtn.setVisibility(View.VISIBLE);
 
@@ -159,10 +177,11 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (activePlayer == 1) {
-                    imageView.setBackgroundColor(Color.parseColor("#ff0000"));
+                    colorOfWinner = "#ff0000";
                 } else if (activePlayer == 2) {
-                    imageView.setBackgroundColor(Color.parseColor("#FFFF00"));
+                    colorOfWinner = "#FFFF00";
                 }
+                allView.setBackgroundColor(Color.parseColor(colorOfWinner));
             }
         }
     }
@@ -173,6 +192,8 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putIntArray("gameState", gameState);
         outState.putString("gameStateDisplay", (String) gameStateDisplay.getText());
+        outState.putString("colorWinner", colorOfWinner);
+        outState.putInt("degreesPerSecond", degreesPerSecond);
     }
 
     // restart game
@@ -186,6 +207,11 @@ public class MainActivity extends AppCompatActivity {
         restartBtn.setVisibility(View.INVISIBLE);
         gameStateDisplay.setText("");
         restartSound.start();
+        degreesPerSecond = 45;
+        rotate(codeCool, degreesPerSecond);
+        colorOfWinner = "#A9E9F1";
+        allView.setBackgroundColor(Color.parseColor(colorOfWinner));
+
     }
 
 
@@ -198,6 +224,37 @@ public class MainActivity extends AppCompatActivity {
                 ImageView imageView = (ImageView) subView;
                 imageView.setImageDrawable(null);
                 imageView.setBackground(null);
+            }
+        }
+    }
+
+    private void spinChips(){
+        GridLayout yourLayout = findViewById(R.id.gridLayout);
+        gameState = new int[yourLayout.getChildCount()];
+        for (int i = 0; i < yourLayout.getChildCount(); i++) {
+            View subView = yourLayout.getChildAt(i);
+            if (subView instanceof ImageView) {
+                ImageView imageView = (ImageView) subView;
+                imageView.animate().rotation(imageView.getRotation()+720).setDuration(1000).setInterpolator(new LinearInterpolator());
+            }
+        }
+    }
+
+    public void rotate(View view, int degreesPerSecond){
+        int loops = 1000000;
+        view.animate().rotationBy(degreesPerSecond * loops).setDuration(loops * 1000)
+                .setInterpolator(new LinearInterpolator());
+    }
+
+
+    private void clearAnimation(){
+        GridLayout yourLayout = findViewById(R.id.gridLayout);
+        gameState = new int[yourLayout.getChildCount()];
+        for (int i = 0; i < yourLayout.getChildCount(); i++) {
+            View subView = yourLayout.getChildAt(i);
+            if (subView instanceof ImageView) {
+                ImageView imageView = (ImageView) subView;
+                imageView.animate().rotation(0);
             }
         }
     }
