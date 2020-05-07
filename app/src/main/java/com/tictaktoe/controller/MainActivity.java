@@ -1,4 +1,4 @@
-package com.tictaktoe;
+package com.tictaktoe.controller;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -19,7 +19,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tictaktoe.R;
+import com.tictaktoe.model.Board;
+
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
+    private Board board;
     private View allView;
     private int[] gameState;
     private TextView gameStateDisplay;
@@ -39,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        board = new Board(3,3);
+        System.out.println((Arrays.deepToString(board.getGameState())));
         allView = findViewById(R.id.allView);
         gameStateDisplay = findViewById(R.id.gameStateDisplay);
         restartBtn = findViewById(R.id.restartBtn);
